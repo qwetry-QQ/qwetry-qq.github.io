@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>2026跨年表白</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "微软雅黑", sans-serif;
+    }
+    /* 倒计时样式 */
+    .countdown {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 2.5rem;
+      text-align: center;
+      z-index: 10;
+      text-shadow: 0 0 8px #00f7ff, 0 0 15px #00f7ff;
+    }
+    /* 表白文案样式（修改后） */
+    .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffd700; /* 金色 */
+      font-size: 2rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 3s ease; /* 渐变时间延长 */
+      z-index: 10;
+      text-shadow: 0 0 12px #ffd700, 0 0 25px #ffd700, 0 0 40px #ffd700;
+      line-height: 2;
+    }
+    /* 爱心样式（修改后） */
+    .heart {
+      position: absolute;
+      width: 25px; /* 爱心放大 */
+      height: 25px;
+      background: #ff1493; /* 深粉色 */
+      transform: rotate(45deg);
+      animation: heartBeat 2s infinite; /* 心跳变慢 */
+      opacity: 0.9;
+      z-index: 5;
+    }
+
+      .heart::before, .heart::after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: #ff1493;
+        border-radius: 50%;
+      }
+
+      .heart::before {
+        top: -12.5px;
+        left: 0;
+      }
+
+      .heart::after {
+        top: 0;
+        left: -12.5px;
+      }
+
+    @keyframes heartBeat {
+      0% {
+        transform: rotate(45deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(45deg) scale(1.5);
+      }
+      /* 心跳幅度更大 */
+      100% {
+        transform: rotate(45deg) scale(1);
+      }
+    }
+    /* 雪花特效（新增） */
+    .snow {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: snowFall linear infinite;
+    }
+
+    @keyframes snowFall {
+      0% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="countdown" id="countdown"></div>
+  <!-- 修改后的表白文案 -->
+  <div class="text" id="loveText">
+    从2025到2026，四季轮回我只想陪你<br>
+    往后余生，风雪是你，平淡是你，温柔也是你<br>
+    从2025走到2026，时针转了一圈又一圈，可我看向你的目光从来没偏移过半分。<br>
+    我记得和你分享的每一个琐碎日常，愿意听你讲烦心事，愿意做你的倾听者，记得你笑起来弯成月牙的眼睛，记得你难过时轻轻抿起的嘴角。<br>
+    跨年的钟声敲响时，我不想再只做你的朋友、你的知己，我想做那个陪你看遍四季风景的人，<br>
+    想在清晨给你递上热咖啡，想在深夜和你聊到睡意袭来，想把所有温柔和偏爱都塞给你。<br>
+    2026年的第一份心愿，就是让你成为我的另一半，你愿意给我这个机会吗？💖<br >
+    做我女朋友？💖
+  </div>
+
+  <script>
+    // 2026跨年时间（2026年1月1日0点0分0秒）
+    const newYear = new Date('2026-01-01 00:00:00').getTime();
+    const countdownEl = document.getElementById('countdown');
+    const loveTextEl = document.getElementById('loveText');
+
+    // 倒计时函数
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const gap = newYear - now;
+
+      if (gap <= 0) {
+        countdownEl.innerHTML = "2026，我们在一起吧！"; // 修改倒计时结束文字
+        loveTextEl.style.opacity = "1";
+        createHearts();
+        createFireworks();
+        createSnow(); // 新增雪花特效
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((gap % (1000 * 60)) / 1000);
+      countdownEl.innerHTML = `距离2026跨年还有<br>${days}天${hours}时${minutes}分${seconds}秒`;
+    }
+
+    // 创建爱心特效（修改后）
+    function createHearts() {
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = Math.random() * 100 + 'vh';
+        heart.style.animationDuration = Math.random() * 2 + 1 + 's';
+        heart.style.background = `rgb(${255}, ${Math.random() * 100}, ${Math.random() * 200})`; // 粉色系渐变
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000); // 爱心停留时间延长
+      }, 200); // 爱心生成速度变慢
+    }
+
+    // 烟花特效（增强版）
+    function createFireworks() {
+      setInterval(() => {
+        const fireworkNum = 30; // 每轮烟花粒子数量
+        for (let i = 0; i < fireworkNum; i++) {
+          const firework = document.createElement('div');
+          firework.style.position = 'absolute';
+          firework.style.width = '6px';
+          firework.style.height = '6px';
+          firework.style.borderRadius = '50%';
+          firework.style.left = Math.random() * 100 + 'vw';
+          firework.style.top = Math.random() * 100 + 'vh';
+          firework.style.background = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+          firework.style.animation = `firework ${Math.random() * 2 + 1}s linear forwards`;
+          document.body.appendChild(firework);
+          setTimeout(() => firework.remove(), 3000);
+        }
+      }, 1000); // 烟花发射频率
+    }
+
+    // 新增雪花特效
+    function createSnow() {
+      setInterval(() => {
+        const snow = document.createElement('div');
+        snow.className = 'snow';
+        snow.style.left = Math.random() * 100 + 'vw';
+        snow.style.top = '-10px';
+        snow.style.animationDuration = Math.random() * 10 + 5 + 's';
+        snow.style.animationDelay = Math.random() * 3 + 's';
+        document.body.appendChild(snow);
+        setTimeout(() => snow.remove(), 15000);
+      }, 300);
+    }
+
+    // 添加工厂烟花动画样式
+    const style = document.createElement('style');
+    style.innerHTML = `
+              @keyframes firework {
+                  0% {transform: scale(1); opacity: 1;}
+                  50% {transform: scale(15); opacity: 0.8;} /* 烟花扩散更大 */
+                  100% {transform: scale(30); opacity: 0;}
+              }
+          `;
+    document.head.appendChild(style);
+
+    // 启动倒计时
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
